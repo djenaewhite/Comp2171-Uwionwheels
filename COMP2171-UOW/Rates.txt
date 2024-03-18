@@ -1,0 +1,45 @@
+BikeID: 1234
+Bike Rating: A
+Experience: Good
+Improvements: None
+
+BikeID: 1234
+Bike Rating: B
+Experience: Good
+Improvements: None
+
+BikeID: 1234
+Bike Rating: A
+Experience: fdghjk
+Improvements: fghjk
+
+BikeID: 1234
+Bike Rating: A
+Experience: vb
+Improvements: vb
+
+BikeID: 1234
+Bike Rating: A
+Experience: hxjk
+Improvements: bsjkd
+
+BikeID: 1234
+Bike Rating: A
+Experience: shdjkl
+Improvements: shjdkl
+
+BikeID: 1234
+Bike Rating: A
+Experience: vbjk
+Improvements: ghjk
+
+BikeID: 1234
+Bike Rating: A
+Experience: good
+Improvements: none
+
+BikeID: 1234
+Bike Rating: A
+Experience: good
+Improvements: none
+

@@ -1,0 +1,16 @@
+4097_Backgate_Excellent_C_true_1000.0_700.0
+5723_ScoSci_Excellent_D_true_1000.0_700.0
+1000_Backgate_Excellent_A_true_1000.0_700.0
+8359_Backgate_Excellent_C_true_1000.0_700.0
+5402_Backgate_Excellent_E_true_1000.0_700.0
+4567_Backgate_Bad_A_true_1000.0_700.0
+3269_ScoSci_Excellent_E_true_1000.0_700.0
+2614_Backgate_Excellent_B_true_1000.0_700.0
+4826_Backgate_Excellent_C_true_1000.0_700.0
+8941_ScoSci_Excellent_C_true_1000.0_700.0
+9748_Humanities_Excellent_A_true_1000.0_700.0
+6357_Backgate_Excellent_D_true_1000.0_700.0
+1234_Backgate_Excellent_A_true_1.0_700.0
+7193_Humanities_Excellent_D_true_1000.0_700.0
+1001_Humanities_Excellent_B_true_1000.0_700.0
+1873_Humanities_Excellent_A_true_1000.0_700.0
