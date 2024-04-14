@@ -27,6 +27,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 public class Login extends JFrame {
 	private JPanel mainPanel;
@@ -49,74 +50,71 @@ public class Login extends JFrame {
 	public static final String emailfile = "emaildata.txt";
 	ArrayList<String> idmail = new ArrayList<String>();
 
-	public Login() {
-		// Frame
-		setTitle("UWI ON WHEELS");
-		setBounds(300, 90, 420, 700);
-		setResizable(false);
-
-		// Login Panel with header
-		/*
-		 * header = new JLabel("UWI ON WHEELS"); header.setFont(new
-		 * Font("TIMES NEW ROMAN", Font.BOLD, 20)); header.setBounds(120, 20, 200, 30);
-		 */
-
-		// Panel
-		mainPanel = new JPanel();
-        //buttons=new JPanel();
-		add(mainPanel);
-		mainPanel.setLayout(null);
-		mainPanel.setBackground(Color.GREEN);
-		// mainPanel.add(header);
-
-		// Admin Checkbox
-		adminorno.setBounds(150, 100, 120, 25);
-		mainPanel.add(adminorno);
-		// Login/SignUp TextField (ID & Password)
-		idText = new JTextField();
-		idLabel.setBounds(20, 150, 100, 25);
-		idText.setBounds(130, 150, 170, 25);
-
-		// Adding ImgageIcon
-		BufferedImage myPicture = null;
-		try {
-			myPicture = ImageIO.read(new File("Logo.png"));
-		} catch (IOException ex) {
-			ex.printStackTrace();
+		// Define RGB values for nude colors
+	private static final int LIGHT_NUDE_RED = 255;
+	private static final int LIGHT_NUDE_GREEN = 220;
+	private static final int LIGHT_NUDE_BLUE = 187;
+	
+	private static final int MEDIUM_NUDE_RED = 200;
+	private static final int MEDIUM_NUDE_GREEN = 150;
+	private static final int MEDIUM_NUDE_BLUE = 130;
+	
+	private static final int DARK_NUDE_RED = 160;
+	private static final int DARK_NUDE_GREEN = 100;
+	private static final int DARK_NUDE_BLUE = 90;
+	
+		public Login() {
+			setTitle("UWI ON WHEELS");
+			setBounds(300, 90, 420, 700);
+			setResizable(true);
+	
+			mainPanel = new JPanel();
+			add(mainPanel);
+			mainPanel.setLayout(null);
+			mainPanel.setBackground(new Color(DARK_NUDE_RED, LIGHT_NUDE_GREEN, LIGHT_NUDE_BLUE));
+	
+			adminorno.setBounds(150, 50, 120, 25);
+			mainPanel.add(adminorno);
+	
+			idText = new JTextField();
+			idLabel.setBounds(20, 100, 100, 25);
+			idText.setBounds(130, 100, 170, 25);
+	
+			BufferedImage myPicture = null;
+			try {
+				myPicture = ImageIO.read(new File("Logo.png"));
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+			Dimension size = new Dimension(400, 375);
+			picLabel.setPreferredSize(size);
+			imgPnel.add(picLabel);
+	
+			add(imgPnel, BorderLayout.NORTH);
+	
+			passwordLabel.setBounds(20, 150, 100, 25);
+			passwordText.setBounds(130, 150, 170, 25);
+			mainPanel.add(idText);
+			mainPanel.add(passwordText);
+			mainPanel.add(passwordLabel);
+			mainPanel.add(idLabel);
+	
+			loginButton = new JButton("LOGIN");
+			loginButton.setBounds(90, 200, 100, 25);
+			mainPanel.add(loginButton);
+	
+			signUpButton = new JButton("SIGN UP");
+			signUpButton.setBounds(210, 200, 100, 25);
+			mainPanel.add(signUpButton);
+	
+			loginButton.addActionListener(new LoginListener());
+			signUpButton.addActionListener(new SignUpListener());
+	
+			setVisible(true);
+			readFile(file);
 		}
-		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-		Dimension size = new Dimension(400, 200);
-		picLabel.setPreferredSize(size);
-		imgPnel.add(picLabel);
-
-		add(imgPnel, BorderLayout.NORTH);
-
-		passwordLabel.setBounds(20, 200, 100, 25);
-		passwordText.setBounds(130, 200, 170, 25);
-		mainPanel.add(idText);
-		mainPanel.add(passwordText);
-		mainPanel.add(passwordLabel);
-		mainPanel.add(idLabel);
-
-		// Buttons
-		loginButton = new JButton("LOGIN");
-		loginButton.setBounds(80, 260, 100, 25);
-		mainPanel.add(loginButton);
-
-		signUpButton = new JButton("SIGN UP");
-		signUpButton.setBounds(200, 260, 100, 25);
-		mainPanel.add(signUpButton);
-
-		// Button Listeners
-		loginButton.addActionListener(new LoginListener());
-		signUpButton.addActionListener(new SignUpListener());
-
-		setVisible(true);
-
-		// Reading database with passenger id and email
-		readFile(file);
-
-	}
+	
 
 	private boolean idCheck(String id) {
 		if (id != null && (id.length() == 9 && id.charAt(0) == '6' && id.charAt(1) == '2')) {
@@ -146,14 +144,14 @@ public class Login extends JFrame {
 
 			if (idCheck(id)) {
 				// System.out.println("HELLO1");
-				/*
-				 * User user1 = new User("Alan", "Smith", "620138741", "calal@bing.com",
-				 * "56tghfi1v"); User user2 = new User("Jane", "Potier", "620338741",
-				 * "salal@bing.com", "569ghfi1v"); User user3 = new User("Jane", "Potier",
-				 * "620345741", "salal@bing.com", "");
-				 * 
-				 * users.add(user1); users.add(user2); users.add(user3);
-				 */
+				
+				  User user1 = new User("Djenae", "White", "620155860", "djenaewhite@gmail.com",
+				  "56tghfi1v"); User user2 = new User("Jane", "Potier", "620338741",
+				  "salal@bing.com", "569ghfi1v"); User user3 = new User("Jane", "Potier",
+				 "620345741", "salal@bing.com", "");
+				 
+				 users.add(user1);
+				 
 				boolean idExists = false;
 				boolean passwordExists = false;
 				boolean admincheck = adminorno.isSelected();
@@ -231,83 +229,74 @@ public class Login extends JFrame {
 			dispose();
 			id = idText.getText();
 			String password = passwordText.getText();
-
+	
 			try {
-				// My idcheck was not working here so did the long way
 				if (id != null && (id.length() == 9 && id.charAt(0) == '6' && id.charAt(1) == '2')
 						&& (password.length() >= 8 && password.length() <= 25 && password != null)) {
-					System.out.println("HERE1");
+	
+					// Debug: Print entered ID
+					System.out.println("Entered ID: " + id);
+	
 					readEmailFile(emailfile);
-
+	
 					boolean idValid = false;
 					for (int index = 0; index < idmail.size(); index++) {
-
-						System.out.println("MADE IT HERE");
 						String[] parts = idmail.get(index).split(" ");
 						String firstname = parts[0];
 						String lasttname = parts[1];
 						String fileid = parts[2];
 						String fileemail = parts[3];
-						System.out.println(id);
-						System.out.println(fileid);
-						/*
-						 * System.out.println(emailfile.toString()); System.out.println(fileid);
-						 * System.out.println(id); System.out.println(fileemail);
-						 */
-						String code = null;
-						if (id.equals(fileid)) {
+	
+						// Debug: Print data from emailfile
+						System.out.println("File ID: " + fileid);
+						System.out.println("File Email: " + fileemail);
+	
+						if (id.equals(fileid.trim())) {
 							idValid = true;
-							// System.out.println(id);
-							// System.out.println(fileid);
-							System.out.println(Login.findUser(fileid).getfname());
+							String code = null;
 							try {
-								new App(fileemail);
+								new App(fileemail); // Ensure this constructor is correct
 								code = App.getRandomString();
-
+	
+								// Debug: Print generated code
+								System.out.println("Generated Code: " + code);
 							} catch (IOException exception) {
-
+								// Handle exception
 							} catch (MessagingException mException) {
-
+								// Handle exception
 							}
-
+	
 							String confirmCode = JOptionPane.showInputDialog("Enter Verification Code:");
 							if (confirmCode.equals(code)) {
 								JOptionPane.showMessageDialog(null, "Email Verified and Account Successfully Created",
 										"Verification", JOptionPane.INFORMATION_MESSAGE);
-
+	
 								User user = new User(firstname, lasttname, fileid, fileemail, password);
 								users.add(user);
-
 								addToUserData(file);
-
+	
 								MainPage main = new MainPage();
 							} else {
 								JOptionPane.showMessageDialog(null, "THE VERIFICATION CODE IS INVALID", "INVALID CODE",
 										JOptionPane.INFORMATION_MESSAGE);
-
 							}
-
 						}
-
 					}
-					if (idValid == false) {
-						JOptionPane.showMessageDialog(null, "THE ID ENTERED IS DOES NOT MATCH THE ID FROM FILE",
+	
+					if (!idValid) {
+						JOptionPane.showMessageDialog(null, "THE ID ENTERED DOES NOT MATCH THE ID FROM FILE",
 								"INVALID ID", JOptionPane.INFORMATION_MESSAGE);
-
 					}
-
 				} else {
 					JOptionPane.showMessageDialog(null, "THE ID OR PASSWORD ENTERED IS INVALID OR LEFT BLANK",
 							"ENTRY ERROR", JOptionPane.INFORMATION_MESSAGE);
-
 				}
-
 			} catch (NullPointerException np) {
-
+				// Handle null pointer exception
 			}
 		}
 	}
-
+	
 //OTHER PAGES
 
 	public class MainPageAdmin extends JFrame {

@@ -1,44 +1,27 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class RateBike extends JFrame {
     private JTextField bikeID = new JTextField(20);
-    private JTextField grade = new JTextField(20);
     private JTextArea experience = new JTextArea();
     private JTextArea improvements = new JTextArea();
-
-    private JPanel pnlDisplay;
-    private JPanel pnlPicture;
-    private JPanel pnlButton;
-
-    private JButton cmdRate;
-    private JButton cmdMenu;
-    private RateBike thisframe;
+    private JComboBox<String> gradeDropdown;
 
     public RateBike() {
         setTitle("Rate a Bike");
-        thisframe = this;
 
-        pnlDisplay = new JPanel(new GridLayout(4, 2));
-        pnlPicture = new JPanel();
-        pnlButton = new JPanel();
+        JPanel contentPane = new JPanel();
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
-        addLabelAndField("Please enter the Bike's ID:", bikeID);
-        addLabelAndField("Letter Grade [A, B, C, D, E]:", grade);
-        addLabelAndTextArea("Tell us about your riding experience:", experience);
-        addLabelAndTextArea("What are some improvements to be made:", improvements);
+        addLabelAndField(contentPane, "Please enter the Bike's ID:", bikeID);
+        addLabelAndDropdown(contentPane, "Letter Grade [A, B, C, D, E]:", new String[]{"A", "B", "C", "D", "E"});
+        addLabelAndTextArea(contentPane, "Tell us about your riding experience:", experience);
+        addLabelAndTextArea(contentPane, "What are some improvements to be made:", improvements);
 
         BufferedImage myPicture = null;
         try {
@@ -47,57 +30,55 @@ public class RateBike extends JFrame {
             ex.printStackTrace();
         }
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        Dimension size = new Dimension(750, 400);
-        picLabel.setPreferredSize(size);
-        pnlPicture.add(picLabel);
+        picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPane.add(picLabel);
 
-        cmdRate = new JButton("Rate Bike");
-        cmdMenu = new JButton("Return to Menu");
-
-        cmdMenu.addActionListener(new CloseButtonListener());
+        JPanel buttonPanel = new JPanel();
+        JButton cmdRate = new JButton("Rate Bike");
+        JButton cmdMenu = new JButton("Return to Menu");
         cmdRate.addActionListener(new RateBikeButtonListener());
+        cmdMenu.addActionListener(new CloseButtonListener());
+        buttonPanel.add(cmdMenu);
+        buttonPanel.add(cmdRate);
+        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPane.add(buttonPanel);
 
-
-
-        //thisframe.setBackground(Color.PINK);
-        cmdRate.setBackground(Color.GREEN); 
-        cmdMenu.setBackground(Color.GREEN);
-
-        pnlButton.add(cmdMenu);
-        pnlButton.add(cmdRate);
-
-        add(pnlDisplay, BorderLayout.CENTER);
-        add(pnlPicture, BorderLayout.NORTH);
-        add(pnlButton, BorderLayout.SOUTH);
-
+        setContentPane(contentPane);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 800);
+        pack();
         setLocationRelativeTo(null);
-        setResizable(false);
         setVisible(true);
     }
 
-    private void addLabelAndField(String labelText, JTextField textField) {
-        JPanel rowPanel = new JPanel(new GridLayout(1, 2));
-        rowPanel.add(new JLabel(labelText));
-        rowPanel.add(textField);
-        pnlDisplay.add(rowPanel);
+    private void addLabelAndField(Container container, String labelText, JTextField textField) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(new JLabel(labelText));
+        panel.add(textField);
+        container.add(panel);
+        container.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing
     }
-    private void addLabelAndTextArea(String labelText, JTextArea textArea) {
-        JPanel rowPanel = new JPanel(new GridLayout(1, 2));
-        rowPanel.add(new JLabel(labelText));
-        rowPanel.add(new JScrollPane(textArea));
-        pnlDisplay.add(rowPanel);
-    }
-    
 
-    // private void addLabelAndTextArea(String labelText, JTextArea textArea) {
-    //     JPanel rowPanel = new JPanel(new GridLayout(1, 2));
-    //     rowPanel.add(new JLabel(labelText));
-    //     textArea = new JTextArea();
-    //     rowPanel.add(new JScrollPane(textArea));
-    //     pnlDisplay.add(rowPanel);
-    // }
+    private void addLabelAndDropdown(Container container, String labelText, String[] options) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(new JLabel(labelText));
+        gradeDropdown = new JComboBox<>(options);
+        panel.add(gradeDropdown);
+        container.add(panel);
+        container.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing
+    }
+
+    private void addLabelAndTextArea(Container container, String labelText, JTextArea textArea) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(new JLabel(labelText));
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(200, 100)); // Set preferred size for scroll pane
+        panel.add(scrollPane);
+        container.add(panel);
+        container.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing
+    }
 
     private boolean isValidGrade(String grade) {
         return grade.equals("A") || grade.equals("B") || grade.equals("C") || grade.equals("D") || grade.equals("E");
@@ -105,8 +86,6 @@ public class RateBike extends JFrame {
 
     public class CloseButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            // thisframe.setVisible(false);
             dispose();
             MainPage main = new MainPage();
         }
@@ -119,78 +98,54 @@ public class RateBike extends JFrame {
                 String[] parts = line.split("_");
                 for (String part : parts) {
                     if (part.equals(ID)) {
-                        return true; 
+                        return true;
                     }
                 }
             }
         }
-        return false; 
+        return false;
     }
-
-    
 
     public class RateBikeButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("Rates.txt", true))) {
                 String ID = bikeID.getText();
-                String bikegrade = grade.getText();
+                String bikegrade = (String) gradeDropdown.getSelectedItem();
                 String bikingexperience = experience.getText();
                 String improve = improvements.getText();
 
-                while (!isValidGrade(bikegrade)) {
-                    JOptionPane.showMessageDialog(thisframe, "Please enter a valid grade from the specified list");
-                    bikegrade = JOptionPane.showInputDialog(thisframe, "Enter grade:");
-
-                    if (bikegrade == null) {
-                        // Handle the cancellation
-                        JOptionPane.showMessageDialog(thisframe, "Grade input canceled. Please provide a valid grade.");
-                        return; // Exit the method without writing to the file
-                    }
-                }
-                while(!isValidID("file.txt",ID)){
-                    JOptionPane.showMessageDialog(thisframe, "Please enter a valid bike ID number ");
-                    ID = JOptionPane.showInputDialog(thisframe, "Enter bike ID:");
-
-                    if (ID == null) {
-                        // Handle the cancellation
-                        JOptionPane.showMessageDialog(thisframe, "Bike ID input canceled. Please provide a valid ID.");
-                        return; // Exit the method without writing to the file
-                    }
-
+                if (!isValidGrade(bikegrade)) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid grade from the specified list");
+                    return;
                 }
 
+                if (!isValidID("file.txt", ID)) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid bike ID number");
+                    return;
+                }
 
-                // Write to file
                 writer.write("BikeID: " + ID);
                 writer.newLine();
                 writer.write("Bike Rating: " + bikegrade);
                 writer.newLine();
                 writer.write("Experience: " + bikingexperience);
                 writer.newLine();
-                writer.write("Improvements: "+ improve);
+                writer.write("Improvements: " + improve);
                 writer.newLine();
                 writer.newLine();
 
-                JOptionPane.showMessageDialog(thisframe, "Thank you for your rating!");
-                
-
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(thisframe, "Invalid ID number");
-                dispose();
-                MainPage main = new MainPage();
+                JOptionPane.showMessageDialog(null, "Thank you for your rating!");
             } catch (IOException error) {
-                JOptionPane.showMessageDialog(thisframe, error);
+                JOptionPane.showMessageDialog(null, error);
                 dispose();
                 MainPage main = new MainPage();
-            } finally {
-                System.out.println(" ");
             }
-            thisframe.setVisible(false);
             dispose();
             MainPage main = new MainPage();
         }
     }
 
-    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new RateBike());
+    }
 }

@@ -19,12 +19,24 @@ import java.awt.event.ActionListener;
         private JButton rateButton      = new JButton("RATE BIKE");
         private JButton incidentButton  = new JButton("REPORT INCIDENT");
         private JButton logout          = new JButton("LOGOUT");
+        private static final int LIGHT_NUDE_RED = 255;
+        private static final int LIGHT_NUDE_GREEN = 220;
+        private static final int LIGHT_NUDE_BLUE = 187;
+        
+        private static final int MEDIUM_NUDE_RED = 200;
+        private static final int MEDIUM_NUDE_GREEN = 150;
+        private static final int MEDIUM_NUDE_BLUE = 130;
+        
+        private static final int DARK_NUDE_RED = 160;
+        private static final int DARK_NUDE_GREEN = 100;
+        private static final int DARK_NUDE_BLUE = 90;
+        //mainPanel.setBackground(new Color(DARK_NUDE_RED, LIGHT_NUDE_GREEN, LIGHT_NUDE_BLUE))
 
         public MainPage()
         {
             setTitle("MainScreen");
             setBounds(300, 90, 420,700);
-            setResizable(false);
+            setResizable(true);
 
             header.setFont(new Font("TIMES NEW ROMAN", Font.BOLD, 20));
             header.setBounds(120, 20, 200, 30);
@@ -47,7 +59,7 @@ import java.awt.event.ActionListener;
             
             add(mainScreenPanel);
             mainScreenPanel.setLayout(null);
-            mainScreenPanel.setBackground(Color.GREEN);
+            mainScreenPanel.setBackground(new Color(DARK_NUDE_RED, LIGHT_NUDE_GREEN, LIGHT_NUDE_BLUE));
 
             selectBike.setBounds(110, 150, 200, 35);
             paymentButton.setBounds(110, 250, 200, 35);
