@@ -5,6 +5,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class RateBike extends JFrame {
     private JTextField bikeID = new JTextField(20);
@@ -145,7 +146,4 @@ public class RateBike extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new RateBike());
-    }
 }

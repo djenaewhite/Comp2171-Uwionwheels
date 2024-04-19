@@ -1,2 +1,5 @@
 Djenae White 620155860 djenaewhite@gmail.com
-Nicholos Watson 620457642 watsonnicholos1@gmail.com
+John Doe 620132321 johndoe@gmail.com 
+Alice Smith 620167293 alice.smith@gmail.com 
+Michael Johnson 620128234 michael.johnson@gmail.com 
+Emily Williams 620189234 emily.williams@gmail.com 

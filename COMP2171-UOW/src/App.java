@@ -45,7 +45,7 @@ public class App {
 	private MimeMessage draftEmail() throws AddressException, MessagingException, IOException {
 
 		randomString = generateRandomAlphanumericString(length);
-		String emailSubject = "Veification";
+		String emailSubject = "VERIFICATION CODE";
 		String emailBody = "Your UWI ON WHEELS verification code is: " + randomString;
 		mimeMessage = new MimeMessage(newSession);
 		mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailReceipients_1));

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -305,38 +306,40 @@ public class Login extends JFrame {
 		private JButton viewUsers = new JButton("VIEW USERS");
 		private JButton deleteUsers = new JButton("DELETE USERS");
 		private JButton logout = new JButton("LOGOUT");
+		private JButton viewIncidents = new JButton("VIEW INCIDENT REPORTS");
 
 		public MainPageAdmin() {
-			setTitle("MainScreen");
+			setTitle("MainScreen Admin");
 			setBounds(300, 90, 420, 700);
-			setResizable(false);
-			setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+			setResizable(true);
+	
 			header.setFont(new Font("TIMES NEW ROMAN", Font.BOLD, 20));
 			header.setBounds(120, 20, 200, 30);
 			mainScreenPanel.add(header);
-
+	
 			add(mainScreenPanel);
 			mainScreenPanel.setLayout(null);
-			mainScreenPanel.setBackground(Color.GREEN);
+			mainScreenPanel.setBackground(new Color(DARK_NUDE_RED, LIGHT_NUDE_GREEN, LIGHT_NUDE_BLUE));
+	
+			viewUsers.setBounds(110, 250, 200, 35);
+			deleteUsers.setBounds(110, 450, 200, 35);
+			logout.setBounds(110, 550, 200, 35);
+			viewIncidents.setBounds(110, 350, 200, 35);
 
-			viewUsers.setBounds(110, 300, 200, 35);
-			deleteUsers.setBounds(110, 400, 200, 35);
-			logout.setBounds(110, 500, 200, 35);
-
+	
 			mainScreenPanel.add(viewUsers);
 			mainScreenPanel.add(deleteUsers);
 			mainScreenPanel.add(logout);
+			mainScreenPanel.add(viewIncidents);
 
-			// Button Listener
-			viewUsers.addActionListener(new ViewUserListener());
-
-			logout.addActionListener(new LogoutAdminListner());
-
-			deleteUsers.addActionListener(new DeleteListener());
-
+	
 			setVisible(true);
-		}
+			viewUsers.addActionListener(new ViewUserListener());
+        	deleteUsers.addActionListener(new DeleteListener());
+        	logout.addActionListener(new LogoutAdminListner());
+		
+        	viewIncidents.addActionListener(new ViewIncidentsListener());
+    }
 
 		private class LogoutAdminListner implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
@@ -344,7 +347,7 @@ public class Login extends JFrame {
 				Login login = new Login();
 			}
 		}
-
+		
 		private class ViewUserListener implements ActionListener {
 			/**
 			 * This method calls the select bike class
@@ -413,7 +416,7 @@ public class Login extends JFrame {
 
 			add(displayPanel);
             add(button, BorderLayout.SOUTH);
-			displayPanel.setBackground(Color.GREEN);
+			displayPanel.setBackground(new Color(DARK_NUDE_RED, LIGHT_NUDE_GREEN, LIGHT_NUDE_BLUE));
 			displayArea = new JTextArea(34, 30);
 			displayArea.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -631,4 +634,35 @@ public class Login extends JFrame {
 		}
 		return null;
 	}
-}
+	private class ViewIncidentsListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			try {
+				dispose();
+				JFrame frame = new JFrame("Incidents");
+				frame.setBounds(300, 90, 420, 700);
+				frame.setResizable(false);
+	
+				JTextArea textArea = new JTextArea(20, 30);
+				textArea.setEditable(false);
+				JScrollPane scrollPane = new JScrollPane(textArea);
+				frame.add(scrollPane);
+				
+				StringBuilder incidentsData = new StringBuilder();
+				BufferedReader reader = new BufferedReader(new FileReader("Incidents.txt"));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					incidentsData.append(line).append("\n");
+				}
+				reader.close();
+	
+				textArea.setText(incidentsData.toString());
+	
+				frame.setVisible(true);
+			} catch (IOException ex) {
+				JOptionPane.showMessageDialog(null, "Error reading Incidents file", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+    }
+

@@ -43,3 +43,8 @@ Bike Rating: A
 Experience: good
 Improvements: none
 
+BikeID: 1234
+Bike Rating: B
+Experience: Good
+Improvements: None
+
